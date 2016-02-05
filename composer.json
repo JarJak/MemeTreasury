@@ -1,114 +1,64 @@
 {
-    "name": "symfony/symfony",
-    "type": "library",
-    "description": "The Symfony PHP framework",
-    "keywords": ["framework"],
-    "homepage": "https://symfony.com",
+    "name": "symfony/framework-standard-edition",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Fabien Potencier",
-            "email": "fabien@symfony.com"
-        },
-        {
-            "name": "Symfony Community",
-            "homepage": "https://symfony.com/contributors"
-        }
-    ],
+    "type": "project",
+    "description": "The \"Symfony Standard Edition\" distribution",
+    "autoload": {
+        "psr-4": { "": "src/" },
+        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
+    },
+    "autoload-dev": {
+        "psr-4": { "Tests\\": "tests/" }
+    },
     "require": {
         "php": ">=5.5.9",
-        "doctrine/common": "~2.4",
-        "twig/twig": "~1.23|~2.0",
-        "psr/cache": "~1.0",
-        "psr/log": "~1.0",
-        "symfony/polyfill-intl-icu": "~1.0",
-        "symfony/polyfill-mbstring": "~1.0",
-        "symfony/polyfill-php56": "~1.0",
-        "symfony/polyfill-php70": "~1.0",
-        "symfony/polyfill-util": "~1.0"
-    },
-    "replace": {
-        "symfony/asset": "self.version",
-        "symfony/browser-kit": "self.version",
-        "symfony/cache": "self.version",
-        "symfony/class-loader": "self.version",
-        "symfony/config": "self.version",
-        "symfony/console": "self.version",
-        "symfony/css-selector": "self.version",
-        "symfony/dependency-injection": "self.version",
-        "symfony/debug": "self.version",
-        "symfony/debug-bundle": "self.version",
-        "symfony/doctrine-bridge": "self.version",
-        "symfony/dom-crawler": "self.version",
-        "symfony/event-dispatcher": "self.version",
-        "symfony/expression-language": "self.version",
-        "symfony/filesystem": "self.version",
-        "symfony/finder": "self.version",
-        "symfony/form": "self.version",
-        "symfony/framework-bundle": "self.version",
-        "symfony/http-foundation": "self.version",
-        "symfony/http-kernel": "self.version",
-        "symfony/intl": "self.version",
-        "symfony/ldap": "self.version",
-        "symfony/monolog-bridge": "self.version",
-        "symfony/options-resolver": "self.version",
-        "symfony/process": "self.version",
-        "symfony/property-access": "self.version",
-        "symfony/property-info": "self.version",
-        "symfony/proxy-manager-bridge": "self.version",
-        "symfony/routing": "self.version",
-        "symfony/security": "self.version",
-        "symfony/security-core": "self.version",
-        "symfony/security-csrf": "self.version",
-        "symfony/security-guard": "self.version",
-        "symfony/security-http": "self.version",
-        "symfony/security-bundle": "self.version",
-        "symfony/serializer": "self.version",
-        "symfony/stopwatch": "self.version",
-        "symfony/templating": "self.version",
-        "symfony/translation": "self.version",
-        "symfony/twig-bridge": "self.version",
-        "symfony/twig-bundle": "self.version",
-        "symfony/validator": "self.version",
-        "symfony/var-dumper": "self.version",
-        "symfony/web-profiler-bundle": "self.version",
-        "symfony/yaml": "self.version"
+        "symfony/symfony": "3.1.*@dev",
+        "doctrine/orm": "^2.5",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-cache-bundle": "^1.2",
+        "symfony/swiftmailer-bundle": "^2.3",
+        "symfony/monolog-bundle": "^2.8",
+        "sensio/distribution-bundle": "^5.0",
+        "sensio/framework-extra-bundle": "^3.0.2",
+        "incenteev/composer-parameter-handler": "^2.0"
     },
     "require-dev": {
-        "cache/integration-tests": "dev-master",
-        "doctrine/cache": "~1.6",
-        "doctrine/data-fixtures": "1.0.*",
-        "doctrine/dbal": "~2.4",
-        "doctrine/orm": "~2.4,>=2.4.5",
-        "doctrine/doctrine-bundle": "~1.4",
-        "monolog/monolog": "~1.11",
-        "ocramius/proxy-manager": "~0.4|~1.0",
-        "egulias/email-validator": "~1.2",
-        "symfony/polyfill-apcu": "~1.1",
-        "symfony/security-acl": "~2.8|~3.0",
-        "phpdocumentor/reflection": "^1.0.7"
+        "sensio/generator-bundle": "^3.0",
+        "symfony/phpunit-bridge": "^2.7"
     },
-    "conflict": {
-        "phpdocumentor/reflection": "<1.0.7"
-    },
-    "autoload": {
-        "psr-4": {
-            "Symfony\\Bridge\\Doctrine\\": "src/Symfony/Bridge/Doctrine/",
-            "Symfony\\Bridge\\Monolog\\": "src/Symfony/Bridge/Monolog/",
-            "Symfony\\Bridge\\ProxyManager\\": "src/Symfony/Bridge/ProxyManager/",
-            "Symfony\\Bridge\\Twig\\": "src/Symfony/Bridge/Twig/",
-            "Symfony\\Bundle\\": "src/Symfony/Bundle/",
-            "Symfony\\Component\\": "src/Symfony/Component/"
-        },
-        "classmap": [
-            "src/Symfony/Component/Intl/Resources/stubs"
+    "scripts": {
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
-        "exclude-from-classmap": [
-            "**/Tests/"
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ]
     },
-    "minimum-stability": "dev",
+    "config": {
+        "platform": {
+            "php": "5.5.9"
+        }
+    },
     "extra": {
+        "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
+        "symfony-web-dir": "web",
+        "symfony-tests-dir": "tests",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
         "branch-alias": {
             "dev-master": "3.1-dev"
         }
