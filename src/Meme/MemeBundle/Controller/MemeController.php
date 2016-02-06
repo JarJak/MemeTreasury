@@ -3,9 +3,11 @@
 namespace Meme\MemeBundle\Controller;
 
 use Meme\CoreBundle\Controller\BaseController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Meme\MemeBundle\Entity\Meme;
 use Meme\MemeBundle\Form\MemeType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Meme controller.
@@ -15,11 +17,12 @@ class MemeController extends BaseController
 {
     /**
      * @param Request $request
+     * @return Response
      */
     public function listAction(Request $request)
     {
         $em    = $this->get('doctrine.orm.entity_manager');
-        $dql   = "SELECT m FROM MemeMemeBundle:Meme m ORDER BY m.insertedAt DESC";
+        $dql   = "SELECT m FROM MemeBundle:Meme m ORDER BY m.insertedAt DESC";
         $query = $em->createQuery($dql);
 
         $paginator  = $this->get('knp_paginator');
@@ -30,7 +33,7 @@ class MemeController extends BaseController
         );
 
         // parameters to template
-        return $this->render('MemeMemeBundle:Meme:list.html.twig', array('pagination' => $pagination));
+        return $this->render('MemeBundle:Meme:list.html.twig', array('pagination' => $pagination));
     }
     
     /**
@@ -43,17 +46,21 @@ class MemeController extends BaseController
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid() && $form['filename']->getData()) {
-            $dir = $this->get('kernel')->getRootDir() . '/../web/uploads/memes/';
-            $form['filename']->getData()->move($dir);
-            $entity->setOriginalFilename($form['filename']->getData());
+        if ($form->isValid() && $form['image']->getData()) {
+            $file = $form['image']->getData();
+            /* @var $file File */
+            $entity->setOriginalFilename($file->getFilename());
+//            $dir = $this->get('kernel')->getRootDir() . '/../web/uploads/memes/';
+//            $form['filename']->getData()->move($dir);
             $entity->setUserIp($request->getClientIp());
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+        } else {
+            throw new \InvalidArgumentException($form->getErrors());
         }
 
-        return $this->render('MemeMemeBundle:Meme:new.html.twig', array(
+        return $this->render('MemeBundle:Meme:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -68,12 +75,10 @@ class MemeController extends BaseController
      */
     private function createCreateForm(Meme $entity)
     {
-        $form = $this->createForm(new MemeType(), $entity, array(
+        $form = $this->createForm(MemeType::class, $entity, array(
             'action' => $this->generateUrl('meme_create'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -87,21 +92,21 @@ class MemeController extends BaseController
         $entity = new Meme();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('MemeMemeBundle:Meme:new.html.twig', array(
+        return $this->render('MemeBundle:Meme:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Meme entity.
-     *
+     * @param int $id
+     * @return Response
      */
-    public function showAction($id)
+    public function showAction(int $id): Response
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('MemeMemeBundle:Meme')->find($id);
+        $entity = $em->getRepository('MemeBundle:Meme')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Meme entity.');
@@ -109,7 +114,7 @@ class MemeController extends BaseController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('MemeMemeBundle:Meme:show.html.twig', array(
+        return $this->render('MemeBundle:Meme:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -123,13 +128,13 @@ class MemeController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('MemeMemeBundle:Meme')->findBy(array(), array(), 1);
+        $entity = $em->getRepository('MemeBundle:Meme')->findOneBy([]);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Meme entity.');
         }
 
-        return $this->render('MemeMemeBundle:Meme:show.html.twig', array(
+        return $this->render('MemeBundle:Meme:show.html.twig', array(
             'entity'      => $entity,
         ));
     }
@@ -142,7 +147,7 @@ class MemeController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('MemeMemeBundle:Meme')->find($id);
+        $entity = $em->getRepository('MemeBundle:Meme')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Meme entity.');
@@ -151,7 +156,7 @@ class MemeController extends BaseController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('MemeMemeBundle:Meme:edit.html.twig', array(
+        return $this->render('MemeBundle:Meme:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -184,7 +189,7 @@ class MemeController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('MemeMemeBundle:Meme')->find($id);
+        $entity = $em->getRepository('MemeBundle:Meme')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Meme entity.');
@@ -200,7 +205,7 @@ class MemeController extends BaseController
             return $this->redirect($this->generateUrl('_edit', array('id' => $id)));
         }
 
-        return $this->render('MemeMemeBundle:Meme:edit.html.twig', array(
+        return $this->render('MemeBundle:Meme:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -217,7 +222,7 @@ class MemeController extends BaseController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('MemeMemeBundle:Meme')->find($id);
+            $entity = $em->getRepository('MemeBundle:Meme')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Meme entity.');

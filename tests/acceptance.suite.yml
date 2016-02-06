@@ -7,12 +7,8 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - WebDriver:
-            url: http://memy.local/app_test.php
-            browser: firefox
-            window_size: 1024x768
-            capabilities:
-                javascriptEnabled: true
-#        - PhpBrowser:
-#            url: http://memy.local/app_dev.php
+#        - WebDriver:
+#            url: http://127.0.0.1:8000/app_test.php
+#            browser: firefox
+#            window_size: 1024x768
         - \Helper\Acceptance

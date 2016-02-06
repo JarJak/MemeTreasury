@@ -1,11 +1,10 @@
-{% extends 'MemeCoreBundle::layout.html.twig' %}
+{% extends '::layout.html.twig' %}
 
 {% block content %}
     {% if entity.filename %}
         <h1>Mem został dodany.</h1>
         <img src="uploads/memes/{{ entity.filename }}">
         <h2>Dodaj kolejny:</h2>
-
     {% else %}
         <h1>Dodaj mem</h1>
     {% endif %}

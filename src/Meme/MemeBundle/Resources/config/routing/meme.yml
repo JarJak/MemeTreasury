@@ -1,34 +1,36 @@
 meme_list:
     path:     /
-    defaults: { _controller: "MemeMemeBundle:Meme:list" }
+    defaults: { _controller: "MemeBundle:Meme:list" }
 
-#meme_show:
-#    path:     /{id}
-#    defaults: { _controller: "MemeMemeBundle:Meme:show" }
+meme_show:
+    path:     /{id}
+    defaults: { _controller: "MemeBundle:Meme:show" }
+    requirements:
+        id: \d+
 
 meme_random:
     path:     /losuj
-    defaults: { _controller: "MemeMemeBundle:Meme:random" }
+    defaults: { _controller: "MemeBundle:Meme:random" }
 
 meme_new:
     path:     /dodaj
-    defaults: { _controller: "MemeMemeBundle:Meme:new" }
+    defaults: { _controller: "MemeBundle:Meme:new" }
 
 meme_create:
     path:     /create
-    defaults: { _controller: "MemeMemeBundle:Meme:create" }
+    defaults: { _controller: "MemeBundle:Meme:create" }
     methods:  POST
 
 #meme_edit:
 #    path:     /{id}/edit
-#    defaults: { _controller: "MemeMemeBundle:Meme:edit" }
+#    defaults: { _controller: "MemeBundle:Meme:edit" }
 #
 #meme_update:
 #    path:     /{id}/update
-#    defaults: { _controller: "MemeMemeBundle:Meme:update" }
+#    defaults: { _controller: "MemeBundle:Meme:update" }
 #    methods:  [POST, PUT]
 #
 #meme_delete:
 #    path:     /{id}/delete
-#    defaults: { _controller: "MemeMemeBundle:Meme:delete" }
+#    defaults: { _controller: "MemeBundle:Meme:delete" }
 #    methods:  [POST, DELETE]

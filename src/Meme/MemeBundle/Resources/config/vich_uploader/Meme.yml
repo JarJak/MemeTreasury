@@ -1,0 +1,4 @@
+Meme\MemeBundle\Entity\Meme:
+    image:
+        mapping:           meme
+        filename_property: filename

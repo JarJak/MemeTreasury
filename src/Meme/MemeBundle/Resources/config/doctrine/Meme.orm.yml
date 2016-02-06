@@ -26,11 +26,13 @@ Meme\MemeBundle\Entity\Meme:
             type: integer
         insertedAt:
             type: datetime
+            nullable: true
             gedmo:
                 timestampable:
                 on: create
         updatedAt:
             type: datetime
+            nullable: true
             gedmo:
                 timestampable:
                 on: update
