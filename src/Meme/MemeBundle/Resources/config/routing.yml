@@ -1,0 +1,3 @@
+meme:
+    resource: "@MemeMemeBundle/Resources/config/routing/meme.yml"
+    prefix:   /

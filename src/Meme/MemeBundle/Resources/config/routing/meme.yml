@@ -1,0 +1,34 @@
+meme_list:
+    path:     /
+    defaults: { _controller: "MemeMemeBundle:Meme:list" }
+
+#meme_show:
+#    path:     /{id}
+#    defaults: { _controller: "MemeMemeBundle:Meme:show" }
+
+meme_random:
+    path:     /losuj
+    defaults: { _controller: "MemeMemeBundle:Meme:random" }
+
+meme_new:
+    path:     /dodaj
+    defaults: { _controller: "MemeMemeBundle:Meme:new" }
+
+meme_create:
+    path:     /create
+    defaults: { _controller: "MemeMemeBundle:Meme:create" }
+    methods:  POST
+
+#meme_edit:
+#    path:     /{id}/edit
+#    defaults: { _controller: "MemeMemeBundle:Meme:edit" }
+#
+#meme_update:
+#    path:     /{id}/update
+#    defaults: { _controller: "MemeMemeBundle:Meme:update" }
+#    methods:  [POST, PUT]
+#
+#meme_delete:
+#    path:     /{id}/delete
+#    defaults: { _controller: "MemeMemeBundle:Meme:delete" }
+#    methods:  [POST, DELETE]

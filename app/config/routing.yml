@@ -1,3 +1,14 @@
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+meme_meme:
+    resource: "@MemeBundle/Resources/config/routing.yml"
+    prefix: /
+
+meme_site:
+     resource: "@SiteBundle/Resources/config/routing.yml"
+     prefix:   /
+
+meme_user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix: /user
