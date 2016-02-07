@@ -13,9 +13,30 @@ What you need to run app:
  - mariadb
  - composer
 
-Instantiation
--------------
-After cloning repo to your phpStorm, add Symfony plugin:
+Installation
+------------
+Run deploy script:
+
+```
+sh deploy.sh
+```
+
+Open http://127.0.0.1:8000 and enjoy!
+
+Problems?
+---------
+Check if you have everything that is needed:
+
+```
+php bin/symfony_requirements
+```
+
+Development
+===========
+
+Setup IDE
+---------
+After cloning repo to your phpStorm/webStorm, add Symfony plugin:
 
 File->settings->plugins->more->symfony
 
@@ -29,23 +50,9 @@ excluded: var/, .idea/
 
 console scripts: bin/
 
-Installation
-------------
-Run deploy script:
-
-```
-sh deploy.sh
-```
-
-Check if you have everything that is needed:
-
-```
-php bin/symfony_requirements
-```
-
 Tests
 -----
-Run tests:
+Run tests with:
 
 ```
 php codecept run
