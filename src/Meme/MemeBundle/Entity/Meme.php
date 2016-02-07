@@ -2,7 +2,11 @@
 
 namespace Meme\MemeBundle\Entity;
 
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Meme\UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Meme
@@ -18,6 +22,11 @@ class Meme
      * @var string
      */
     private $filename;
+
+    /**
+     * @var File
+     */
+    private $image;
 
     /**
      * @var string
@@ -40,22 +49,22 @@ class Meme
     private $rate = 0;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $insertedAt;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $updatedAt;
 
     /**
-     * @var \Meme\UserBundle\Entity\User
+     * @var User
      */
     private $user;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Tag[]
      */
     private $tags;
 
@@ -64,7 +73,7 @@ class Meme
      */
     public function __construct()
     {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -195,7 +204,7 @@ class Meme
     /**
      * Get insertedAt
      *
-     * @return \DateTime 
+     * @return DateTime
      */
     public function getInsertedAt()
     {
@@ -205,7 +214,7 @@ class Meme
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return DateTime
      */
     public function getUpdatedAt()
     {
@@ -215,10 +224,10 @@ class Meme
     /**
      * Set user
      *
-     * @param \Meme\UserBundle\Entity\User $user
+     * @param User $user
      * @return Meme
      */
-    public function setUser(\Meme\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -228,7 +237,7 @@ class Meme
     /**
      * Get user
      *
-     * @return \Meme\UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
@@ -238,10 +247,10 @@ class Meme
     /**
      * Add tags
      *
-     * @param \Meme\MemeBundle\Entity\Tag $tags
+     * @param Tag $tags
      * @return Meme
      */
-    public function addTag(\Meme\MemeBundle\Entity\Tag $tags)
+    public function addTag(Tag $tags)
     {
         $this->tags[] = $tags;
 
@@ -251,9 +260,9 @@ class Meme
     /**
      * Remove tags
      *
-     * @param \Meme\MemeBundle\Entity\Tag $tags
+     * @param Tag $tags
      */
-    public function removeTag(\Meme\MemeBundle\Entity\Tag $tags)
+    public function removeTag(Tag $tags)
     {
         $this->tags->removeElement($tags);
     }
@@ -261,10 +270,31 @@ class Meme
     /**
      * Get tags
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Tag[]
      */
     public function getTags()
     {
         return $this->tags;
+    }
+
+    public function setImage(File $image = null): self
+    {
+        $this->image = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new DateTime('now');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

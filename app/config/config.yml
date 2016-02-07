@@ -38,6 +38,9 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         page_title: memy.tk - twój osobisty folder ze śmiesznymi obrazkami
+    form_themes:
+        # other form themes
+        - 'VichUploaderBundle:Form:fields.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -62,6 +65,14 @@ doctrine:
         auto_mapping: true
         mappings:
             FOSUserBundle: ~
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    bundles:  [SiteBundle]
+    filters:
+        less: ~
+        cssrewrite: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -89,3 +100,17 @@ knp_paginator:
     template:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig     # sliding pagination controls template
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort
+
+stof_doctrine_extensions:
+    default_locale: pl_PL
+    orm:
+        default:
+            timestampable: true
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        meme:
+            uri_prefix:         /uploads/memes
+            upload_destination: %kernel.root_dir%/../web/uploads/memes
+            inject_on_load: true
