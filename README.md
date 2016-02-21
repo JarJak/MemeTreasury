@@ -21,6 +21,8 @@ File->settings->plugins->more->symfony
 
 Directory structure
 -------------------
+you can configure it in phphStorm as follows:
+
 source: src/
 
 resources: web/
@@ -28,6 +30,20 @@ resources: web/
 excluded: var/, .idea/
 
 console scripts: bin/
+
+Database
+--------
+You need to create your local mariadb database. Default config params are:
+
+host: localhost
+
+user: meme
+
+pass: meme
+
+db name: meme
+
+If you want to use your own params, edit ```app/config/parameters/loc.yml``` file.
 
 Installation
 ------------
