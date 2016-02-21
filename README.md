@@ -59,6 +59,8 @@ Check if you have everything that is needed:
 php bin/symfony_requirements
 ```
 
+Now the website should be available under ```http://localhost:8000/app_loc.php```
+
 Tests
 -----
 Run tests:
