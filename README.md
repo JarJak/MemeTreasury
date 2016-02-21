@@ -1,68 +1,58 @@
-Symfony Standard Edition
-========================
+MemeTreasury
+============
+(todo: travis, scrutinizer)
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+[![Build Status](https://travis-ci.org/JarJak/memy.svg?branch=master)](https://travis-ci.org/JarJak/memy)
+[![Build Status](https://scrutinizer-ci.com/g/JarJak/memy/badges/build.png?b=master)](https://scrutinizer-ci.com/g/JarJak/memy/build-status/master)
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+Prerequisites
+-------------
+What you need to run app:
 
-What's inside?
---------------
+ - php7
+ - mariadb
+ - composer
 
-The Symfony Standard Edition is configured with the following defaults:
+Instantiation
+-------------
+After cloning repo to your phpStorm, add Symfony plugin:
 
-  * An AppBundle you can use to start coding;
+File->settings->plugins->more->symfony
 
-  * Twig as the only configured template engine;
+Directory structure
+-------------------
+source: src/
 
-  * Doctrine ORM/DBAL;
+resources: web/
 
-  * Swiftmailer;
+excluded: var/, .idea/
 
-  * Annotations enabled for everything.
+console scripts: bin/
 
-It comes pre-configured with the following bundles:
+Installation
+------------
+Run deploy script:
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+```
+sh deploy.sh
+```
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+Check if you have everything that is needed:
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+```
+php bin/symfony_requirements
+```
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
+Tests
+-----
+Run tests:
 
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
+```
+php codecept run
+```
 
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/3.0/book/installation.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/3.0/book/doctrine.html
-[8]:  https://symfony.com/doc/3.0/book/templating.html
-[9]:  https://symfony.com/doc/3.0/book/security.html
-[10]: https://symfony.com/doc/3.0/cookbook/email.html
-[11]: https://symfony.com/doc/3.0/cookbook/logging/monolog.html
-[13]: https://symfony.com/doc/3.0/bundles/SensioGeneratorBundle/index.html
+Adding bundles/external libraries
+---------------------------------
+```
+php composer require {vendor}/{lib_name}
+```

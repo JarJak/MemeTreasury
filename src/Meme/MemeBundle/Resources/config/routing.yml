@@ -1,0 +1,3 @@
+meme:
+    resource: "routing/meme.yml"
+    prefix:   /
