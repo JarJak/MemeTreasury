@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set SYMFONY_ENV=loc
 
-php composer install
-php con doctrine:schema:update --force
+php composer update
+php bin/console doctrine:schema:update --force --env=loc
 rm -rf var/cache/*
-php con server:start -q
-php codecept run
+php bin/console server:start -q --env=loc
+php bin/codeception run
