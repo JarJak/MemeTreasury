@@ -48,7 +48,7 @@
                     @todo meme show view is not completed
                     <a href="{{ path('meme_show', {'id': meme.id}) }}">
                     #}
-                        <img class="img-responsive" src="{{meme.filename}}" alt="{{meme.title}}">
+                        <img class="img-responsive" src="{{ vich_uploader_asset(meme, 'filename') }}" alt="{{ meme.title }}">
                     {#</a>#}
                 </div>
             {% endfor %}
